@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="/img/favicon/favi.png" type="image/x-icon">
+    <title>VI-Lab Live Food Tracking System</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!--Bootstrap for Link-->
+</head>
+
+<body  >
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary" style="margin: 0%">
+        <!--All Classs are of bootstrap-->
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html"> Nutrition
+                Tracker</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Nutrion table
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="Fruits.html">Fruits</a></li>
+                            <li><a class="dropdown-item" href="Vegetable.html">Vegetables</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Sign in</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="box">
+        <h1 style="text-align: center;margin: 2%;">VI-LAB (BIT)</h1>
+        <h1 style="text-align: center;">LIVE Nutrion Tracing:</h1>
+        <div
+            style="display:inline-block; border: solid red 2px; padding: 20px; margin: 20px; width: 30%; text-align: center;">
+            Name: <div id="na" style="font-weight:900"></div>
+        </div>
+        <div
+            style="display:inline-block; border: solid red 2px; padding: 20px; margin: 20px; width: 30%; text-align: center;">
+            Weight (g): <div id="we" style="font-weight:900"></div>
+        </div>
+        <div
+            style="display:inline-block; border: solid red 2px; padding: 20px; margin: 20px; width: 30%; text-align: center; ">
+            Protein (g): <div id="pr" style="font-weight:900"></div>
+        </div>
+        <div
+            style="display:inline-block; border: solid red 2px; padding: 20px; margin: 20px; width: 30%; text-align: center;">
+            Calories (g): <div id="cal" style="font-weight:900"></div>
+        </div>
+        <div
+            style="display:inline-block; border: solid red 2px; padding: 20px; margin: 20px; width: 30%; text-align: center;">
+            Fat (g): <div id="fa" style="font-weight:900"></div>
+        </div>
+        <div
+            style="display:inline-block; border: solid red 2px; padding: 20px; margin: 20px; width: 30%; text-align: center;">
+            Carbs (g): <div id="Carbs" style="font-weight:900"></div>
+        </div>
+
+</body>
+<script>
+    let file = "https://api.thingspeak.com/channels/1695584/feeds.json?results=1";
+    async function loadNames() {
+        const response = await fetch(file);
+        const names = await response.json();
+        var na = names["feeds"][0]["field1"] != null ? names["feeds"][0]["field1"] : 0;
+        var we = names["feeds"][0]["field2"] != null ? names["feeds"][0]["field2"] : 0;
+        var pr = names["feeds"][0]["field3"] != null ? names["feeds"][0]["field3"] : 0;
+        var cal = names["feeds"][0]["field4"] != null ? names["feeds"][0]["field4"] : 0;
+        var fa = names["feeds"][0]["field5"] != null ? names["feeds"][0]["field5"] : 0;
+        var Carbs = names["feeds"][0]["field6"] != null ? names["feeds"][0]["field6"] : 0;
+        document.getElementById("na").innerHTML = na;
+        document.getElementById("we").innerHTML = we;
+        document.getElementById("pr").innerHTML = pr;
+        document.getElementById("cal").innerHTML = cal;
+        document.getElementById("fa").innerHTML = fa;
+        document.getElementById("Carbs").innerHTML = Carbs;
+    }
+
+    var field1 = setInterval(loadNames, 1000);
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+
+</html>
