@@ -76,10 +76,12 @@
             style="display:inline-block; border: solid red 2px; padding: 20px; margin: 20px; width: 30%; text-align: center;">
             Carbs (g): <div id="Carbs" style="font-weight:900"></div>
         </div>
+        <div id="tim" style="text-align: center; color: blue">
+        </div>
 
 </body>
 <script>
-    let file = "https://api.thingspeak.com/channels/1695584/feeds.json?results=1";
+    let file = "https://api.thingspeak.com/channels/1758523/feeds.json?results=1";
     async function loadNames() {
         const response = await fetch(file);
         const names = await response.json();
@@ -89,12 +91,15 @@
         var cal = names["feeds"][0]["field4"] != null ? names["feeds"][0]["field4"] : 0;
         var fa = names["feeds"][0]["field5"] != null ? names["feeds"][0]["field5"] : 0;
         var Carbs = names["feeds"][0]["field6"] != null ? names["feeds"][0]["field6"] : 0;
+        var tm = names["feeds"][0]["created_at"] != null ? names["feeds"][0]["created_at"] : 0;
         document.getElementById("na").innerHTML = na;
         document.getElementById("we").innerHTML = we;
         document.getElementById("pr").innerHTML = pr;
         document.getElementById("cal").innerHTML = cal;
         document.getElementById("fa").innerHTML = fa;
         document.getElementById("Carbs").innerHTML = Carbs;
+        document.getElementById("tim").innerHTML = tm;
+        
     }
 
     var field1 = setInterval(loadNames, 1000);
